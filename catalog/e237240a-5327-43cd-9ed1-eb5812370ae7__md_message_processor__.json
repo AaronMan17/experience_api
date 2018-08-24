@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "delta-flights-json"
+        }
+    },
+    "id": "e237240a-5327-43cd-9ed1-eb5812370ae7",
+    "version": "5.2.0.0"
+}

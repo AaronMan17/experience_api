@@ -1,0 +1,41 @@
+#%RAML 1.0
+baseUri: https://mocksvc.mulesoft.com/mocks/94a999b1-16c6-4b3f-b183-4a7a898a071b # 
+title: flightsUXAPI
+
+types: 
+  Flights: !include datatypes/flights.raml
+
+/deltaFlights:
+  get:
+    queryParameters: 
+      destination:
+        required: false
+        enum: [SFO,LAX,PDX,CLE,PDF]
+    responses: 
+      200:
+        body: 
+          application/json:
+            type: Flights[]
+            examples: !include examples/flightsExample.raml
+      400:
+        body: 
+          application/json:
+            example: {
+              "message": "No flights found, try again"
+            }
+/airlinesFlights:
+  get:
+    responses:
+      200:
+        body:
+           application/json:
+            type: Flights[]
+            examples: !include examples/flightsExample.raml
+      400:
+        body: 
+          application/json:
+            example: {
+              "message": "No flights found, try again"
+            }
+          
+        
