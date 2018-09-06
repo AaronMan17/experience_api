@@ -8,17 +8,12 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
-    <http:request-config name="Delta_REST_Request_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Request Configuration" basePath="/process_api"/>
-    <flow name="getDeltaFlightsFlow">
-        <http:request config-ref="Delta_REST_Request_Configuration" path="/deltaFlights" method="GET" doc:name="Delta Request" metadata:id="136c0e0a-c4b1-4f5f-9d0b-1a7e2b549757">
+    <flow name="get:/deltaFlights">
+        <http:request config-ref="global-httpRequestConfig" path="/process_api/deltaFlights" method="GET" doc:name="HTTP">
             <http:request-builder>
-                <http:query-param paramName="destination" value="#[message.inboundProperties.'http.query.params'.destination]"/>
+                <http:query-param paramName="destination" value="#[message.inboundProperties.'http.query.params'.?destination]"/>
             </http:request-builder>
         </http:request>
-        <logger level="INFO" doc:name="Logger"/>
-    </flow>
-    <flow name="getAirlinesFlightsFlow">
-        <http:request config-ref="Delta_REST_Request_Configuration" path="/airlinesFlights" method="GET" doc:name="United Request" metadata:id="136c0e0a-c4b1-4f5f-9d0b-1a7e2b549757"/>
-        <logger level="INFO" doc:name="Logger"/>
+        <logger message="#[payload]" level="INFO" doc:name="Logger"/>
     </flow>
 </mule>
